@@ -72,7 +72,8 @@ describe('write-only IPC and renderer isolation',()=>{
     const response=await invokeOperation('momo:credentials:save',{provider:'openai',secret:canary},true,async()=>({...snapshot(),secret:canary}));
     expect(response.ok).toBe(false);expect(JSON.stringify(response)).not.toContain(canary);expect(allowedRequest('https://api.openai.com/v1/responses',false)).toBe(false);expect(productionCsp).toContain("connect-src 'self' https://tiles.openfreemap.org");expect(allowedRequest('https://api.tomtom.com/routing/1/calculateRoute',false)).toBe(false);
   });
-  it('keeps the benchmark credential transport outside every production bundle graph',async()=>{
+  // Three real bundle builds can exceed five seconds on hosted Windows runners.
+  it('keeps the benchmark credential transport outside every production bundle graph',{timeout:30_000},async()=>{
     for(const entry of ['electron/main.ts','electron/preload.ts','src/main.tsx']){
       const result=await build({entryPoints:[entry],bundle:true,write:false,metafile:true,platform:'node',format:'cjs',external:['electron','better-sqlite3'],loader:{'.css':'empty','.png':'empty','.svg':'empty'},logLevel:'silent'});
       expect(Object.keys(result.metafile!.inputs).some(p=>p.includes('scripts/evaluation/'))).toBe(false);

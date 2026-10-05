@@ -3,7 +3,7 @@
 **All local release gates PASS. Private staging created; ready for owner public-publication approval.**
 
 1. Starting public commit: 413dce3fa3de244a730a35696e5575a4c9e914d4.
-2. New public commit: the commit containing this report; obtain with `git rev-parse HEAD`. Exact resolved ID is recorded in the private owner handoff. Four sanitized commits including this staging record; private history is not imported.
+2. Current staging commit: obtain with `git rev-parse HEAD`. Exact resolved ID and commit count are recorded in the private owner handoff. Sanitized history includes release preparation and staging validation updates; private history is not imported.
 3. Runtime inventory: ten native binaries. Electron 44.4.3; Chromium 152.0.7977.130; Node 24.21.0; six supplied media/graphics DLLs; SQLite 3.53.4 via better-sqlite3 13.0.3; two project helpers. [Exact matrix](docs/RUNTIME_REDISTRIBUTION.md), [hash inventory](docs/RUNTIME_BINARIES.json).
 4. Electron: MIT grant retained unchanged as LICENSE.electron.txt.
 5. Chromium: complete upstream LICENSES.chromium.html retained unchanged, including bundled Node/graphics/component grants.
