@@ -1,9 +1,7 @@
-# Runtime redistribution review — unresolved
+# Runtime redistribution review
 
-The locked npm runtime/bundled-code inventory contains 175 package records with identified license metadata and retained notice text, including notices found in upstream package READMEs. This is not a complete license clearance for an Electron executable.
+The exact component matrix and evidence are in [RUNTIME_REDISTRIBUTION.md](RUNTIME_REDISTRIBUTION.md). The Windows package preserves Electron's complete upstream notices and includes FFmpeg corresponding source, build/replacement instructions, separate MoMo MIT terms, and applicable Microsoft SDK/STL notices. Foreign-platform SQLite prebuilds are excluded from the x64 artifact.
 
-The downloaded Electron 44.4.3 distribution includes `LICENSE` and `LICENSES.chromium.html`. Both are retained in the Windows package. Its Chromium notices include an FFmpeg component with LGPL terms, as well as GPL, AGPL and non-commercial wording elsewhere in the aggregate notice collection. Some entries may describe build tools, optional source or alternatives rather than code shipped in this Windows binary. Keyword counts alone cannot establish which obligations apply.
+**One blocking issue remains:** redistribution entitlement for proprietary MSVC v142 runtime objects linked into the two native helpers is not established by the installed standalone 2019 Build Tools license. The owner confirmed standalone Build Tools only / uncertain licensing. The dependency-license gate and overall release gate remain **FAIL**. Do not publish the binaries until that grant is established or an authorized, validated replacement build resolves it.
 
-Before publication, identify the actual bundled multimedia/runtime configuration, retain the required notices, establish the corresponding-source/relinking or other applicable distribution requirements, and document how this release satisfies them. Also confirm the redistribution basis for the statically linked Microsoft C++ runtime in the project helpers. Do not relicense those third-party components as MoMo MIT code.
-
-Publication is blocked pending this component-level review. No GPL/AGPL incompatibility or non-commercial restriction is asserted solely from the aggregate notice text, and no blanket compatibility assumption has been made.
+The 175 runtime/bundled npm records have identified licenses and retained notices. Development-only records stay in the private audit. Aggregate Chromium notice keywords were not used as a substitute for component review.

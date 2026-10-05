@@ -1,0 +1,201 @@
+{
+  "source": "Current packaged renderer and artwork; isolated disposable profile. Documentation-only IPC fixtures for Home, Relay and Situation; Dashboard/Mo/Work show the same fictional Relay attention item; account and task states remain empty.",
+  "viewport": {
+    "width": 1920,
+    "height": 1080
+  },
+  "mainSha256": "94b9516a8b22d58624d6e0ced1411f3303dac363f4768bce2d510c218a1d7a85",
+  "rendererFiles": [
+    {
+      "file": "index-Ce_5J4Yc.js",
+      "sha256": "d02f51c43f1d606a91541f0fd5a1aacf73204332857b8f0ae9cf611ea8fff51a"
+    },
+    {
+      "file": "maplibre-worker.js",
+      "sha256": "ea693f25b2cc04d90d54e6e77df995ba78daadd618fc4b0803cce010b52734f1"
+    }
+  ],
+  "captures": [
+    {
+      "file": "dashboard.png",
+      "module": "Dashboard",
+      "actualRoute": "dashboard",
+      "heading": "Dashboard",
+      "visibleHeadings": [
+        "Your day, in focus.",
+        "Needs attention",
+        "Briefing",
+        "Agenda",
+        "Tasks",
+        "Quick actions",
+        "Mo",
+        "MoMo usage"
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "492e7478b829e5943dc0c0918f275eb962998bb3928c75327945220762decbd6",
+      "provenance": "Empty account/task profile with the fictional Relay attention item from the documentation fixture; no saved places or clocks."
+    },
+    {
+      "file": "mo.png",
+      "module": "Mo",
+      "actualRoute": "dashboard",
+      "heading": "Dashboard",
+      "visibleHeadings": [
+        "Your day, in focus.",
+        "Needs attention",
+        "Briefing",
+        "Agenda",
+        "Tasks",
+        "Quick actions",
+        "Mo",
+        "MoMo usage",
+        "Your personal agent."
+      ],
+      "paneMode": "assistant",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "2fa5b174307a543d00b5721ab7d5da485a49a05053703d2bc67ad35bdc813efd",
+      "provenance": "Empty Mo pane; AI requests disabled and no provider key."
+    },
+    {
+      "file": "work.png",
+      "module": "Work",
+      "actualRoute": "dashboard",
+      "heading": "Dashboard",
+      "visibleHeadings": [
+        "Your day, in focus.",
+        "Needs attention",
+        "Briefing",
+        "Agenda",
+        "Tasks",
+        "Quick actions",
+        "Mo",
+        "MoMo usage",
+        "Work"
+      ],
+      "paneMode": "activity",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "ecef0ca5d9ab7265644f30fd537ea70ad5ce8284bd180437726e6f5b33252a77",
+      "provenance": "Honest empty Work and approval state."
+    },
+    {
+      "file": "inbox.png",
+      "module": "Inbox",
+      "actualRoute": "inbox",
+      "heading": "Inbox",
+      "visibleHeadings": [
+        "Your inbox, in focus."
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "f5d4c391d797e2045d1eaa5ca8b670ae90454908f5b6f571ca9404151a6dcb93",
+      "provenance": "Honest empty/setup state; UTC demo preference."
+    },
+    {
+      "file": "planner.png",
+      "module": "Planner",
+      "actualRoute": "planner",
+      "heading": "Planner",
+      "visibleHeadings": [
+        "A clearer week ahead."
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "07ddf783de57b7f8420582ab332d486533c385cc30650cb42f40efa96d046d85",
+      "provenance": "Honest empty/setup state; UTC demo preference."
+    },
+    {
+      "file": "situation.png",
+      "module": "Situation View",
+      "actualRoute": "situation",
+      "heading": "Situation View",
+      "visibleHeadings": [
+        "Situation View",
+        "Weather",
+        "Commute & Traffic",
+        "Time Zones",
+        "Flights",
+        "Recent Conditions"
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "cfa6ddf4184a4487b91a318d7a586f497475e76b60c23c8a3ff23dae07a147a9",
+      "provenance": "Documentation-only public Paris city coordinate; no saved route, private clock, weather or traffic data."
+    },
+    {
+      "file": "relay.png",
+      "module": "Relay",
+      "actualRoute": "relay",
+      "heading": "Relay",
+      "visibleHeadings": [
+        "Relay",
+        "Communications",
+        "Message",
+        "Demo-studio"
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "c2d904322e58f8d0c269bd2608486142daa03abe305c393a0a7d6981aa5986a6",
+      "provenance": "Documentation-only synthetic held message; provider remains unconfigured."
+    },
+    {
+      "file": "home.png",
+      "module": "Home Automation",
+      "actualRoute": "home-automation",
+      "heading": "Home Automation",
+      "visibleHeadings": [
+        "Home Automation",
+        "Govee LAN",
+        "Hue Bridge",
+        "Alexa",
+        "Demo studio light",
+        "Devices & inventory"
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "27ea474ff52f23a8de7c8a8be9b07ffcb71d3296c67d407d0ab143a999d18554",
+      "provenance": "Documentation-only simulated mapped light (H6000), no live discovery or control."
+    },
+    {
+      "file": "settings.png",
+      "module": "Settings",
+      "actualRoute": "settings",
+      "heading": "Settings",
+      "visibleHeadings": [
+        "Overview",
+        "Your working environment"
+      ],
+      "paneMode": "closed",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sha256": "6ac75b45a49ac971f901543554b6fc9fe04168fd8cd91e3b9c37ba880f1187fa",
+      "provenance": "Honest empty/setup state; UTC demo preference."
+    }
+  ]
+}

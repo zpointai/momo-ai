@@ -68,10 +68,18 @@
       "LICENSE",
       "THIRD_PARTY_NOTICES.md",
       "licenses/**/*",
-      "!dist-electron/desktop-observer{,/**/*}"
+      "!dist-electron/desktop-observer{,/**/*}",
+      "!node_modules/better-sqlite3/prebuilds/darwin-*.node",
+      "!node_modules/better-sqlite3/prebuilds/linux-*.node",
+      "!node_modules/better-sqlite3/prebuilds/linuxmusl-*.node",
+      "!node_modules/better-sqlite3/prebuilds/win32-arm64.node"
     ],
     "asar": true,
     "extraResources": [
+      {
+        "from": "vendor/ffmpeg",
+        "to": "third-party-source/ffmpeg"
+      },
       {
         "from": "dist-electron/desktop-observer",
         "to": "desktop-observer",
@@ -88,6 +96,13 @@
           "identity.json"
         ]
       }
+    ],
+    "extraFiles": [
+      { "from": "RUNTIME_NOTICES.md", "to": "RUNTIME_NOTICES.md" },
+      { "from": "licenses/microsoft", "to": "licenses/microsoft" },
+      { "from": "docs/RUNTIME_REDISTRIBUTION.md", "to": "RUNTIME_REDISTRIBUTION.md" },
+      { "from": "THIRD_PARTY_NOTICES.md", "to": "THIRD_PARTY_NOTICES.md" },
+      { "from": "LICENSE", "to": "LICENSE.MoMo.txt" }
     ],
     "asarUnpack": [
       "node_modules/better-sqlite3/**/*.node"

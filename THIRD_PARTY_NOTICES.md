@@ -181,4 +181,6 @@ This inventory is generated from the installed locked packages with `npm run lic
 
 Fonts: Geist, Instrument Serif and JetBrains Mono use SIL OFL 1.1. Lucide and MapLibre notices are retained with the dependency notices. Remote maps, weather, flight and logo services have separate usage terms; source licensing does not grant a service subscription or waive data restrictions.
 
-Runtime redistribution clearance is incomplete. Electron's bundled FFmpeg/Chromium notices and the native helpers' Microsoft runtime obligations need component-level review before publication. See docs/RUNTIME_LICENSE_REVIEW.md.
+## Native runtime distribution
+
+See [the exact runtime matrix](docs/RUNTIME_REDISTRIBUTION.md) and [runtime terms](RUNTIME_NOTICES.md). The Windows package retains Electron LICENSE.electron.txt and LICENSES.chromium.html unchanged, including Node.js, Chromium, FFmpeg, DirectX Shader Compiler, SwiftShader and Vulkan notices. MoMo's MIT grant is also provided as LICENSE.MoMo.txt. FFmpeg corresponding source and the Electron patch/build instructions accompany the DLL under resources/third-party-source/ffmpeg. Windows SDK terms for the unmodified D3D compiler and linked SDK runtime code are under licenses/microsoft. These components are not relicensed under MoMo MIT. No MSVC redistributable installer or separate MSVC runtime DLL is shipped.

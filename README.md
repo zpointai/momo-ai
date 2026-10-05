@@ -2,7 +2,7 @@
 
 **Community Preview 0.1 · Windows x64 · local release candidate**
 
-**Publication blocked:** native startup network observation and bundled-runtime redistribution review are unfinished. This is a local review candidate, not an approved public release.
+**Publication blocked:** the redistribution grant for the MSVC runtime linked into two native helpers remains unverified. Network observation and the current screenshot set are complete. This is a local review candidate, not an approved public release.
 
 MoMo AI is a Windows-first personal AI operating environment. Models reason and propose work; native code owns credentials, permissions, tools and action authority.
 
@@ -54,7 +54,15 @@ Dependency lifecycle scripts are disabled by `.npmrc`; `setup:dependencies` runs
 
 ## Read more
 
-![Empty Dashboard and Mo pane from the public package](docs/screenshots/dashboard.png)
+![Current Dashboard with a fictional Relay attention item](docs/screenshots/dashboard.png)
+
+Fresh 1920×1080 captures from the current public build. The Relay item and Home light are documentation-only simulations; no account or device is connected.
+
+| Relay: synthetic held message | Home: simulated mapped light |
+| --- | --- |
+| ![Synthetic Relay](docs/screenshots/relay.png) | ![Simulated Home light](docs/screenshots/home.png) |
+
+[All nine screenshots and provenance](docs/SCREENSHOTS.md) · [First-run network audit](docs/NETWORK_AUDIT.md) · [Runtime redistribution](docs/RUNTIME_REDISTRIBUTION.md)
 
 - [Architecture](docs/ARCHITECTURE.md) and [security model](docs/SECURITY_MODEL.md)
 - [Provider and optional integration setup](docs/PROVIDER_SETUP.md)

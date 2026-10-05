@@ -1,0 +1,180 @@
+{
+  "description": "Local review package; helper VCRuntime redistribution grant remains unresolved. Hashes identify exact files, not distribution permission.",
+  "binaries": [
+    {
+      "file": "d3dcompiler_47.dll",
+      "bytes": 4741488,
+      "sha256": "a05f99734f7c4822fefc12b367af21fd0976ed6608752fb1e1e80b6ece7ecbbb",
+      "version": "10.0.26100.7705 (WinBuild.160101.0800)",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "RPCRT4.dll"
+      ],
+      "matchesUpstreamElectron": true
+    },
+    {
+      "file": "dxcompiler.dll",
+      "bytes": 25745408,
+      "sha256": "a7314b7f1f87b34067ad157a4ea97b69e046bdb567f491ae3c6aabb0ac4ca89e",
+      "version": "1.9.2607.0",
+      "imports": [
+        "ADVAPI32.dll",
+        "KERNEL32.dll",
+        "ole32.dll",
+        "OLEAUT32.dll",
+        "USER32.dll"
+      ],
+      "matchesUpstreamElectron": true
+    },
+    {
+      "file": "dxil.dll",
+      "bytes": 1509760,
+      "sha256": "77e039c905030a641e53658a008b74e90635a5ea9b6b79eabd0f2003bdfca59a",
+      "version": "1.8.2502.11",
+      "imports": [
+        "ADVAPI32.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "KERNEL32.dll",
+        "ole32.dll"
+      ],
+      "matchesUpstreamElectron": true
+    },
+    {
+      "file": "ffmpeg.dll",
+      "bytes": 3113472,
+      "sha256": "6c6bca4e7d14df5429fc0392d2613662b5a585133681e285dbaeefe4f90fcad3",
+      "version": null,
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "matchesUpstreamElectron": true
+    },
+    {
+      "file": "MoMo Community Preview.exe",
+      "bytes": 246240256,
+      "sha256": "d67dd989af7cbdc0938583f2751d344caa5eab591ab4a9a5ff4320d28b368337",
+      "version": "0.7.1",
+      "imports": [
+        "ADVAPI32.dll",
+        "api-ms-win-core-handle-l1-1-0.dll",
+        "api-ms-win-core-realtime-l1-1-1.dll",
+        "api-ms-win-core-synch-l1-2-0.dll",
+        "api-ms-win-core-winrt-l1-1-0.dll",
+        "api-ms-win-core-winrt-string-l1-1-0.dll",
+        "api-ms-win-power-base-l1-1-0.dll",
+        "api-ms-win-shcore-scaling-l1-1-1.dll",
+        "bcryptprimitives.dll",
+        "CFGMGR32.dll",
+        "COMCTL32.dll",
+        "COMDLG32.dll",
+        "CRYPT32.dll",
+        "CRYPTUI.dll",
+        "d3d11.dll",
+        "d3d12.dll",
+        "dbghelp.dll",
+        "dcomp.dll",
+        "dwmapi.dll",
+        "DWrite.dll",
+        "dxgi.dll",
+        "ffmpeg.dll",
+        "GDI32.dll",
+        "KERNEL32.dll",
+        "MF.dll",
+        "MFReadWrite.dll",
+        "ncrypt.dll",
+        "ntdll.dll",
+        "ole32.dll",
+        "OLEACC.dll",
+        "OLEAUT32.dll",
+        "pdh.dll",
+        "PROPSYS.dll",
+        "RPCRT4.dll",
+        "Secur32.dll",
+        "SETUPAPI.dll",
+        "SHELL32.dll",
+        "SHLWAPI.dll",
+        "tbs.dll",
+        "urlmon.dll",
+        "USER32.dll",
+        "USERENV.dll",
+        "UxTheme.dll",
+        "VERSION.dll",
+        "wevtapi.dll",
+        "WINHTTP.dll",
+        "WINMM.dll",
+        "WINTRUST.dll",
+        "WS2_32.dll",
+        "WTSAPI32.dll"
+      ],
+      "matchesUpstreamElectron": null
+    },
+    {
+      "file": "vk_swiftshader.dll",
+      "bytes": 5520384,
+      "sha256": "86fe47036fb92c3ad14ec5c97d0ff41ea457d0784f25dc0fc67f7ef17a2dd8bc",
+      "version": "5.0.0",
+      "imports": [
+        "GDI32.dll",
+        "KERNEL32.dll",
+        "USER32.dll"
+      ],
+      "matchesUpstreamElectron": true
+    },
+    {
+      "file": "vulkan-1.dll",
+      "bytes": 939008,
+      "sha256": "72d4b679e0e70f8f024063f745e408e21158bd73f51f779694b90ef59762fa94",
+      "version": "Vulkan Loader",
+      "imports": [
+        "ADVAPI32.dll",
+        "CFGMGR32.dll",
+        "KERNEL32.dll"
+      ],
+      "matchesUpstreamElectron": true
+    },
+    {
+      "file": "resources/app.asar.unpacked/node_modules/better-sqlite3/prebuilds/win32-x64.node",
+      "bytes": 1989632,
+      "sha256": "e21e5efd71fba66578e95b62554d9028064a80dafd7221bf8a8ef155de8d240a",
+      "version": null,
+      "imports": [
+        "KERNEL32.dll"
+      ],
+      "matchesUpstreamElectron": null
+    },
+    {
+      "file": "resources/desktop-observer/momo-desktop-observer.exe",
+      "bytes": 244736,
+      "sha256": "331b3ea1585cb67afa5c932417a7055de0388d78a638309ae3dad8c504dc28de",
+      "version": null,
+      "imports": [
+        "ADVAPI32.dll",
+        "dwmapi.dll",
+        "KERNEL32.dll",
+        "ole32.dll",
+        "OLEAUT32.dll",
+        "USER32.dll"
+      ],
+      "matchesUpstreamElectron": null
+    },
+    {
+      "file": "resources/relay-setup/momo-relay-setup.exe",
+      "bytes": 96768,
+      "sha256": "12e4ced045d2cbb01b6b1705d3b1dcdd91da85d87226e240d176971a3247540e",
+      "version": null,
+      "imports": [
+        "KERNEL32.dll",
+        "SHELL32.dll",
+        "USER32.dll"
+      ],
+      "matchesUpstreamElectron": null
+    }
+  ]
+}
