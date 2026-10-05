@@ -2,5 +2,5 @@
   "name": "momo-relay-gateway", "version": "0.2.0", "private": true, "type": "module",
   "engines": { "node": ">=24" },
   "scripts": { "start": "node server.mjs", "test": "node --test gateway.test.mjs http.test.mjs voice.test.mjs" },
-  "dependencies": { "twilio": "5.13.1", "ws": "8.22.0" }
+  "dependencies": { "twilio": "6.1.2", "ws": "8.22.0" }
 }
