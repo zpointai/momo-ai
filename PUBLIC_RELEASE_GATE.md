@@ -1,6 +1,6 @@
 # Community Preview 0.1 — local release gate
 
-**Overall: PASS — ready for owner publication approval.** Reviewed 2026-10-04. No GitHub repository, remote, release or tag was created. The private repository is unchanged.
+**Overall: PASS — ready for owner publication approval.** Reviewed 2026-10-04. Private GitHub staging was authorized and created on 2026-10-05 at [zpointai/momo-ai](https://github.com/zpointai/momo-ai); main is pushed. No public release or tag exists. The private authoritative source repository is unchanged.
 
 | Gate | Result | Evidence / limitation |
 | --- | --- | --- |
@@ -17,7 +17,7 @@
 | Public tests | PASS | 1,093 tests across 88 files; 46 separate Relay tests. Four workers bound test-run contention. |
 | Typecheck and lint | PASS | Passed in public candidate. |
 | Clean-source build | PASS | Fresh source export inside this candidate installed its own npm dependencies and checksum-verified LLVM-MinGW copy; native helpers, bundles and real native smoke tests passed. |
-| CI configuration | PASS | Windows install/setup, typecheck, lint, tests, build and source/runtime scans configured. Hosted execution is unverified until a repository exists. |
+| CI configuration | PASS | Windows install/setup, typecheck, lint, tests, build and source/runtime scans configured. Hosted results are available in the [Windows workflow](https://github.com/zpointai/momo-ai/actions/workflows/ci.yml); exact validated commit/result is recorded in the owner handoff. |
 | Public package allowlist | PASS | 293 extracted ASAR files; only explicit runtime roots. Dependency copies limited to SQLite and its required package; bundled-code notices retained. |
 | app.asar scan | PASS | Extracted content scanned; 30 project-owned runtime files matched build hashes, including both native helpers. |
 | Executable/resource scan | PASS | No unresolved findings. 43 binary/locale pattern matches also occur in the fresh upstream Electron distribution; reviewed using byte/fingerprint comparisons. |
@@ -30,6 +30,6 @@
 
 ## Next decision
 
-All technical release gates pass. The MSVC helper-runtime licensing blocker is resolved, and the final package, network observation and screenshots have been revalidated. On 2026-10-05 the owner confirmed target `zpointai/momo-ai` and public identity `Zlatin Gorov <211139952+zpointai@users.noreply.github.com>`. All three unpublished public commits use that author and committer identity. Repository creation and publication remain pending explicit approval; proposed tag: `community-preview-0.1`.
+All technical release gates pass. The MSVC helper-runtime licensing blocker is resolved, and the final package, network observation and screenshots have been revalidated. On 2026-10-05 the owner confirmed target `zpointai/momo-ai` and public identity `Zlatin Gorov <211139952+zpointai@users.noreply.github.com>`. The three prepared commits and subsequent staging updates use that author and committer identity. Private repository creation and pushing main were explicitly approved and completed. Changing visibility to public, tagging and publishing remain pending separate approval; proposed tag: `community-preview-0.1`.
 
 No private Git history is imported. Evidence, excluded-file manifest, provider findings and owner fingerprints are outside the public repository's tracked content. Local verification profiles, caches, dependencies and release outputs are ignored and excluded from source publication.
