@@ -1,0 +1,117 @@
+/* Supporting Dashboard objects. Needs attention, shell and other workspaces are unchanged. */
+.dashboard-refined .calendar-agenda {
+  --instrument-line: #80705a;
+  --instrument-paper: #ede2cb;
+  background: #19160f;
+}
+.dashboard-refined .calendar-agenda .pane-heading {padding-bottom: 6px}
+.dashboard-refined .calendar-agenda .agenda-range {margin-bottom: 16px}
+.dashboard-refined .calendar-agenda .agenda-entry {gap: 20px; padding: 12px 8px 16px; min-height: 118px}
+.dashboard-refined .calendar-agenda .agenda-entry:where(:hover,:focus-visible,[aria-pressed=true]) {background: #292319}
+.dashboard-refined .calendar-agenda .agenda-entry>svg {color: #bcaf99}
+.dashboard-refined .calendar-agenda .agenda-entry[aria-pressed=true]>svg {color: var(--amber)}
+.dashboard-refined .agenda-entry .calendar-instrument {
+  position: relative; isolation: isolate; flex: 0 0 72px; width: 72px; height: 92px;
+  margin: 0 2px 4px 0; perspective: 360px; text-align: center;
+  font-variant-numeric: tabular-nums; color: #2c261c;
+}
+.calendar-instrument::before,.calendar-instrument::after {
+  content: ''; position: absolute; inset: 3px -3px -3px 3px; z-index: -1;
+  background: #9c8a6b; border: 1px solid #80705a; border-radius: 5px;
+}
+.calendar-instrument::after {inset: 6px -5px -6px 5px; z-index: -2; background: #3c3224}
+.calendar-leaf {
+  position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%; background: #ede2cb; border-radius: 5px;
+  box-shadow: 0 6px 12px #0003; transform-origin: 50% 15%;
+  transition: transform 220ms var(--dashboard-ease),background-color 180ms;
+}
+.calendar-leaf::before,.calendar-leaf::after {content: ''; position: absolute; width: 3px; height: 10px; top: -4px; left: 16px; border: 1px solid #b69c75; border-radius: 2px; background: #3c3224}
+.calendar-leaf::after {left: auto; right: 16px}
+.calendar-month {font: 500 12px/1.4 Geist,system-ui,sans-serif; color: #7a4b23; margin: 0 0 2px}
+.calendar-leaf b {font: 500 32px/1.1 Geist,system-ui,sans-serif; letter-spacing: -.035em; color: #30291f}
+.calendar-weekday {font: 400 12px/1.4 Geist,system-ui,sans-serif; color: #6b5b45; margin-top: 3px}
+.agenda-entry:where(:hover,:focus-visible,[aria-pressed=true]) .calendar-leaf {background: #f7ecd6; transform: translateY(-2px) rotateX(6deg)}
+.calendar-agenda .agenda-entry[aria-pressed=true] .calendar-month {text-decoration: underline; text-underline-offset: 3px}
+
+/* A single working container; the empty organizer is local to the empty state. */
+.dashboard-refined .organized-tasks {background: #211b14; container: tasks / inline-size}
+.dashboard-refined .organized-tasks .pane-scroll {padding-top: 12px; padding-bottom: 16px; flex: 1}
+.dashboard-refined .task-organizer-empty {display: grid; grid-template-columns: minmax(0,1fr) 104px; align-items: center; gap: 16px; padding: 4px 0; min-height: 84px}
+.task-organizer-empty>div {min-width: 0}
+.task-organizer-art {display: block; width: 104px; height: auto; fill: none; stroke: #80705a; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; pointer-events: none}
+.organizer-ground {stroke: #80705a; opacity: .35}
+.organizer-back {fill: #413727}
+.organizer-floor {fill: #b6a180}
+.organizer-side {fill: #6e5b3e}
+.organizer-front {fill: #dfceac}
+.organizer-rim {fill: none; stroke: #a18c69}
+.organizer-detail {fill: #b8691d; stroke: none; transition: fill 180ms}
+.organized-tasks:has(.pane-footer button:hover,.pane-footer button:focus-visible) .organizer-detail {fill: #e8a860}
+@container tasks (max-width: 400px) {
+  .dashboard-refined .task-organizer-empty {grid-template-columns: minmax(0,1fr) 76px; gap: 12px}
+  .task-organizer-art {width: 76px}
+}
+.dashboard-refined .task-organizer-empty h3 {font-size: 20px; margin-bottom: 8px}
+.dashboard-refined .organized-tasks .pane-footer {padding-bottom: 16px}
+.dashboard-refined .organized-tasks .pane-footer .text-button {color: var(--text); border: 1px solid #65543c; padding: 7px 12px; min-height: 36px; border-radius: 5px; text-decoration: none}
+.dashboard-refined .organized-tasks .pane-footer .text-button:where(:hover,:focus-visible) {background: #302619; border-color: var(--amber)}
+.dashboard-refined .organized-tasks .task-row {padding: 12px; margin-bottom: 6px; border: 1px solid #514739; border-radius: 6px; background: #282118; gap: 12px}
+.dashboard-refined .organized-tasks .task-row:focus-within {border-color: var(--amber); background: #302619}
+.dashboard-refined .organized-tasks .task-row:hover {background: #302619}
+.dashboard-refined .organized-tasks .task-title {display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 12px; align-items: center}
+.dashboard-refined .organized-tasks .task-title strong,.dashboard-refined .organized-tasks .task-title small {grid-column: 1}
+.dashboard-refined .organized-tasks .task-title small {margin-top: 3px}
+.task-review-label {grid-column: 2; grid-row: 1 / 3; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--amber); white-space: nowrap}
+
+/* Editorial page object: decorative linework carries no saved facts or inferred highlights. */
+.dashboard-refined .editorial-briefing {background: #1c1710; container: briefing / inline-size}
+.briefing-edition {display: grid; grid-template-columns: minmax(0,1fr) 168px; min-height: 0; max-height: inherit; position: relative}
+.briefing-editorial {display: flex; flex-direction: column; min-width: 0; min-height: 0}
+.dashboard-refined .editorial-briefing .pane-heading {min-height: 60px; align-items: center}
+.dashboard-refined .editorial-briefing .pane-heading h2 {font-size: 22px; line-height: 1.25; letter-spacing: -.02em}
+.dashboard-refined .editorial-briefing .pane-heading h2>svg {width: 18px; height: 18px}
+.dashboard-refined .editorial-briefing .pane-scroll {padding-top: 12px; padding-bottom: 20px; flex: 1; max-height: 236px}
+.dashboard-refined .editorial-briefing .pane-empty h3 {font-size: 18px; margin-bottom: 10px}
+.dashboard-refined .editorial-briefing .briefing-context {display: flex; flex-wrap: wrap; gap: 4px 16px; margin-bottom: 16px}
+.dashboard-refined .editorial-briefing .briefing-highlights {border: 0; padding: 0}
+.dashboard-refined .editorial-briefing .briefing-highlights p {padding: 0; margin: 0 0 16px; font-size: 15px; line-height: 1.65; border: 0}
+.dashboard-refined .editorial-briefing .briefing-highlights p:last-child {margin-bottom: 0}
+.dashboard-refined .editorial-briefing .pane-footer {padding-top: 0; gap: 12px 20px}
+.dashboard-refined .editorial-briefing .pane-footer .secondary {background: #302619; border-color: #80633d; color: #eee5d5}
+.dashboard-refined .editorial-briefing .pane-footer .secondary:hover:not(:disabled) {background: #45311b; border-color: #e8a860}
+.briefing-art {display: flex; align-items: center; justify-content: center; padding: 16px 20px 20px 0; pointer-events: none}
+.briefing-pages {display: block; width: 100%; max-width: 154px; height: auto; overflow: visible; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.05}
+.edition-ground {stroke: #80705a; opacity: .35}
+.edition-back {fill: #413727; stroke: #80705a}
+.edition-edge {stroke: #80705a}
+.edition-paper {fill: #e7d8bb; stroke: #bcaf99}
+.edition-fold {fill: none; stroke: #80705a}
+.edition-rule {fill: none; stroke: #a18c69}
+.edition-ribbon {fill: #b8691d; stroke: #b8691d; transition: fill 200ms,stroke 200ms}
+.edition-ribbon-mark {stroke: #e7d8bb}
+.edition-registration {stroke: #80705a; opacity: .55}
+.briefing-ribbon {transition: transform 220ms var(--dashboard-ease)}
+.editorial-briefing:has(button:hover,button:focus-visible) .briefing-ribbon {transform: translateY(-4px)}
+.editorial-briefing:has(button:hover,button:focus-visible) .edition-ribbon {fill: #cc7b2e; stroke: #cc7b2e}
+
+@container briefing (max-width: 700px) {
+  .briefing-edition {grid-template-columns: minmax(0,1fr) 128px}
+  .briefing-art {padding-right: 16px}
+  .dashboard-refined .editorial-briefing .pane-heading {flex-wrap: wrap; gap: 8px}
+}
+@container briefing (max-width: 480px) {
+  .briefing-edition {grid-template-columns: minmax(0,1fr) 90px}
+  .briefing-art {align-items: flex-start; padding: 20px 10px 0 0}
+  .dashboard-refined .editorial-briefing .pane-heading {padding-right: 8px}
+  .dashboard-refined .editorial-briefing .pane-scroll,.dashboard-refined .editorial-briefing .pane-footer {padding-right: 8px}
+}
+@container dashboard (max-width: 620px) {
+  .dashboard-refined .calendar-agenda .agenda-entry {gap: 16px}
+  .dashboard-refined .organized-tasks .task-title {grid-template-columns: 1fr}
+  .task-review-label {grid-column: 1; grid-row: auto; margin-top: 6px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .dashboard-refined .calendar-leaf,.dashboard-refined .briefing-ribbon {transform: none!important}
+}
+:root[data-motion=reduced] .dashboard-refined .calendar-leaf,:root[data-motion=reduced] .dashboard-refined .briefing-ribbon {transform: none!important}

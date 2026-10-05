@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 168" fill="none">
+<title>MoMo original decorative string lights</title>
+<path d="M32 137v-20c0-11 9-20 20-20h119c24 0 40-12 40-28S195 40 171 40H79C50 40 30 53 30 70s20 30 49 30h86c22 0 35-10 35-21s-13-22-35-22H85c-22 0-38 9-38 21s16 21 38 21h70c14 0 25-6 25-14s-11-14-25-14h-49" stroke="#71848D" stroke-width="4" stroke-linecap="round"/>
+<path d="M32 126v14m74-69h-9" stroke="#B5C8CD" stroke-width="5" stroke-linecap="round"/>
+<rect x="23" y="135" width="18" height="14" rx="5" fill="#9EAEB7"/>
+<path d="M29 149v7m6-7v7" stroke="#72848D" stroke-width="3" stroke-linecap="round"/>
+<g stroke-width="2">
+<rect x="51" y="43" width="11" height="18" rx="5.5" transform="rotate(-40 51 43)" fill="#8FD5E5" stroke="#C4EDF3"/>
+<rect x="92" y="31" width="11" height="18" rx="5.5" fill="#EDC88A" stroke="#F4DCAF"/>
+<rect x="136" y="31" width="11" height="18" rx="5.5" fill="#94C6AA" stroke="#C2E3D0"/>
+<rect x="183" y="42" width="11" height="18" rx="5.5" transform="rotate(40 183 42)" fill="#B7B2DD" stroke="#DAD4F0"/>
+<rect x="206" y="75" width="11" height="18" rx="5.5" transform="rotate(75 206 75)" fill="#EDC88A" stroke="#F4DCAF"/>
+<rect x="154" y="89" width="11" height="18" rx="5.5" fill="#8FD5E5" stroke="#C4EDF3"/>
+<rect x="107" y="89" width="11" height="18" rx="5.5" fill="#CBA6B4" stroke="#E6CCD5"/>
+<rect x="62" y="83" width="11" height="18" rx="5.5" transform="rotate(35 62 83)" fill="#94C6AA" stroke="#C2E3D0"/>
+<rect x="85" y="53" width="10" height="16" rx="5" fill="#B7B2DD" stroke="#DAD4F0"/>
+<rect x="137" y="53" width="10" height="16" rx="5" fill="#8FD5E5" stroke="#C4EDF3"/>
+<rect x="171" y="74" width="10" height="16" rx="5" transform="rotate(55 171 74)" fill="#EDC88A" stroke="#F4DCAF"/>
+</g>
+</svg>

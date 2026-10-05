@@ -1,0 +1,8 @@
+*
+!package.json
+!package-lock.json
+!gateway.mjs
+!server.mjs
+!voice.mjs
+!admin.mjs
+!Dockerfile

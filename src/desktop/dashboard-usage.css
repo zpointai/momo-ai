@@ -1,0 +1,57 @@
+/* Usage joins the supporting column; all accounting stays in the existing service. */
+.dashboard-refined .dashboard-usage-card {background: #1c1710; max-height: none; flex: none; order: 4; container: usage / inline-size}
+.dashboard-refined .dashboard-usage-card .pane-heading {min-height: 56px; position: relative}
+.usage-resource-meter {position: absolute; top: 20px; right: 24px; width: 96px; height: 44px; fill: none; stroke: #80705a; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; pointer-events: none}
+.meter-ground {stroke: #413727;stroke-width:.8}
+.meter-base-top {fill:#ad9a7a}
+.meter-base-front {fill:#827055}
+.meter-base-side {fill:#5b4b34}
+.meter-base-rule {stroke:#c9b695;stroke-width:.7}
+.meter-column-front {fill:#dfceac}
+.meter-column-side {fill:#aa9470}
+.meter-column-top {fill:#f1e5cf}
+.meter-ticks {stroke:#9b815b;stroke-width:.8}
+.meter-column-amber .meter-column-front {fill:#dca455;stroke:#9d713e}
+.meter-column-amber .meter-column-side {fill:#a86f31;stroke:#895e32}
+.meter-column-amber .meter-column-top {fill:#f0c27d;stroke:#ac8048}
+.meter-column-amber .meter-ticks {stroke:#8a5d2c}
+.usage-periods {display: grid; grid-template-columns: minmax(0,1.35fr) minmax(0,1fr); align-items: start; gap: 16px 24px; margin: 0; padding: 12px 24px 20px}
+.usage-period {min-width: 0}
+.usage-period dt {font: 500 13px/1.5 Geist,system-ui,sans-serif; color: var(--muted); margin-bottom: 6px}
+.usage-period dd {margin: 0}
+.usage-amount {font: 500 21px/1.25 Geist,system-ui,sans-serif; color: var(--text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere}
+.usage-month .usage-amount {font-size: 28px; letter-spacing: -.025em; color: #eee5d5}
+.usage-period .usage-unpriced {font-size: 18px; line-height: 1.5}
+.usage-month .usage-unpriced {font-size: 24px; line-height: 1.25}
+.usage-period .usage-period-status {font: 400 12px/1.5 Geist,system-ui,sans-serif; color: #bcaf99; margin-top: 8px}
+.dashboard-refined .dashboard-usage-card .pane-footer {justify-content: space-between; gap: 4px 12px; padding-bottom: 10px}
+.usage-currency {font-size: 12px; color: var(--muted)}
+.dashboard-refined .dashboard-usage-card .pane-footer .text-button {color: var(--amber); white-space: nowrap}
+.dashboard-refined .dashboard-usage-card .pane-footer .text-button:hover {background: #302619; color: var(--text)}
+.usage-explanation {margin: 0 24px 16px; color: var(--muted); font-size: 12px; line-height: 1.6}
+.usage-explanation>summary {display: flex; align-items: center; gap: 8px; width: fit-content; min-height: 28px; list-style: none; cursor: pointer; border-radius: 4px; color: #bcaf99}
+.usage-explanation>summary::-webkit-details-marker {display: none}
+.usage-explanation>summary:hover {color: var(--text)}
+.usage-explanation>summary:focus-visible {outline: 2px solid var(--amber); outline-offset: 4px}
+.usage-explanation[open]>summary>svg {transform: rotate(180deg)}
+.usage-explanation>div {padding: 4px 0 0; max-width: 65ch}
+.usage-explanation p {margin: 8px 0 0}
+.usage-control-status {margin: 0; padding: 0 24px 12px; font-size: 13px; line-height: 1.5; color: var(--amber)}
+@container dashboard (max-width: 1200px) {
+  .usage-resource-meter {right: 20px}
+  .usage-periods {padding-right: 20px; padding-left: 20px}
+  .usage-explanation {margin-right: 20px; margin-left: 20px}
+  .usage-control-status {padding-right: 20px; padding-left: 20px}
+}
+@container dashboard (max-width: 1050px) {
+  .dashboard-context-column>.agenda-pane {grid-column: 1; grid-row: 1 / span 2}
+  .dashboard-context-column>.tasks-pane {grid-column: 2; grid-row: 1}
+  .dashboard-usage-card {grid-column: 2; grid-row: 2}
+}
+@container usage (max-width: 340px) {
+  .usage-periods {grid-template-columns: 1fr; gap: 16px}
+  .usage-period:not(.usage-month) {display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 0 12px; align-items: baseline}
+  .usage-period:not(.usage-month) dt {grid-column: 1; margin: 0}
+  .usage-period:not(.usage-month) .usage-amount {grid-column: 2; text-align: right}
+  .usage-period:not(.usage-month) .usage-period-status {grid-column: 1 / -1; margin-top: 4px}
+}

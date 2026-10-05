@@ -1,0 +1,4 @@
+/* Reading surfaces already use the browser's ordinary text selection. These
+   content-bearing buttons need explicit opt-in; navigation and handles do not. */
+:where(.message-row,.local-draft-item>button,.thread-select,.resource-row,.suggested-task,.planner-event-chip,.planner-agenda-row,.planner-timed-event,.agenda-entry,.attention-row){user-select:text;-webkit-user-select:text}
+::selection{background:#e8a860;color:#251a0d;text-shadow:none}

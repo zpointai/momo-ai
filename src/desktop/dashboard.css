@@ -1,0 +1,166 @@
+/* Dashboard refinement of the selected illuminated direction; other workspaces keep their own rules. */
+.desktop-dashboard.dashboard-refined {
+  container: dashboard / inline-size;
+  position: relative;
+  --dashboard-space: 24px;
+  --dashboard-feedback: 160ms;
+  --dashboard-material: 220ms;
+  --dashboard-ease: cubic-bezier(.16, 1, .3, 1);
+}
+.dashboard-refined .dashboard-toolbar {
+  background: none; border: 0; padding: 28px 32px 24px; min-height: 112px;
+  align-items: center; gap: 24px; width: 100%; max-width: 1792px; margin: 0 auto;
+}
+.dashboard-title h1 {font: 500 28px/1.2 Geist,system-ui,sans-serif; letter-spacing: -.025em; margin: 0 0 8px; color: var(--text)}
+.dashboard-title time {font-size: 13px; color: var(--muted)}
+.dashboard-refined .toolbar-actions {gap: 8px}
+.dashboard-refined .secondary {min-height: 36px; padding: 8px 12px; border-radius: 6px; font-size: 13px}
+.dashboard-refined .dashboard-body {
+  padding: 0; overflow: auto; display: block!important;
+  width: 100%; max-width: none; margin: 0; scrollbar-gutter: stable;
+  min-height: 0; overscroll-behavior: contain;
+}
+.dashboard-refined .dashboard-reading {width: 100%; max-width: 1792px; margin: 0 auto; padding: 0 32px 24px}
+.dashboard-refined .dashboard-columns {grid-template-columns: minmax(0,1.5fr) minmax(320px,1fr); gap: var(--dashboard-space); height: auto; align-items: start}
+.dashboard-refined .dashboard-main-column,.dashboard-refined .dashboard-context-column {display: flex; gap: var(--dashboard-space); overflow: visible}
+.dashboard-refined .work-pane {flex: none; min-height: 0; max-height: 380px; border: 1px solid var(--border); border-radius: 12px; background: #18140f}
+.dashboard-refined .pane-heading {padding: 20px 24px 8px; border: 0; min-height: 54px; gap: 12px; flex-wrap: nowrap}
+.dashboard-refined .pane-heading h2 {font: 500 16px/1.4 Geist,system-ui,sans-serif; gap: 9px}
+.dashboard-refined .pane-heading h2>svg {width: 18px; height: 18px; stroke-width: 1.7}
+.dashboard-refined .pane-scroll {padding: 12px 24px 16px; max-height: 260px}
+.dashboard-refined .pane-empty {padding: 4px 0}
+.dashboard-refined .pane-empty h3 {font: 500 18px/1.4 Geist,system-ui,sans-serif; margin: 0 0 8px; letter-spacing: -.015em}
+.dashboard-refined .pane-empty p {font-size: 14px; line-height: 1.6; max-width: 58ch; margin: 0; color: var(--muted)}
+.dashboard-refined .pane-footer {padding: 0 24px 20px; border: 0; gap: 12px 20px; min-height: 44px}
+.dashboard-refined .pane-meta {font-size: 12px; color: var(--muted); line-height: 1.5}
+.dashboard-refined .text-button {min-height: 34px; font-size: 13px; gap: 8px; border-radius: 4px}
+.dashboard-refined .text-button:hover:not(:disabled) {color: var(--text); text-decoration: underline; text-underline-offset: 4px}
+.dashboard-refined .text-button:disabled {opacity: .6}
+.dashboard-refined button {transition: color var(--dashboard-feedback),background-color var(--dashboard-feedback),border-color var(--dashboard-feedback)}
+.dashboard-refined button:active:not(:disabled) {filter: brightness(.95)}
+.dashboard-refined .agenda-range {display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; margin: 0 0 16px}
+.dashboard-refined .agenda-range>span {color: var(--subtle)}
+.dashboard-refined .agenda-entry {gap: 16px; padding: 12px 8px; margin: 0 -8px; width: calc(100% + 16px); border-radius: 6px}
+.dashboard-refined .agenda-entry:last-child {border-bottom: 0}
+.dashboard-refined .agenda-entry strong {font-size: 16px; line-height: 1.4; color: var(--text)}
+.dashboard-refined .agenda-entry small {font-size: 13px; color: var(--muted); margin-top: 6px}
+.dashboard-refined .agenda-entry .agenda-date {width: 48px; text-align: center; align-self: center; color: var(--muted); font-variant-numeric: tabular-nums}
+.agenda-date span {display: block; font-size: 12px; line-height: 1.4}
+.agenda-date b {display: block; font-size: 25px; font-weight: 500; line-height: 1.25; color: var(--amber)}
+.dashboard-refined .agenda-entry>svg {color: var(--muted); transition: transform var(--dashboard-feedback) var(--dashboard-ease)}
+.dashboard-refined .agenda-entry:where(:hover,:focus-visible)>svg {transform: translateX(2px); color: var(--amber)}
+.dashboard-refined .agenda-pane .pane-footer {padding-top: 4px; min-height: 36px}
+.dashboard-refined .tasks-pane .pane-scroll {padding-bottom: 12px}
+.dashboard-refined .tasks-pane .task-title strong {font-size: 15px; line-height: 1.5}
+.dashboard-refined .tasks-pane .task-title small {font-size: 12px; color: var(--muted)}
+.dashboard-refined .briefing-pane .pane-scroll {padding-top: 12px}
+.dashboard-refined .briefing-context {font-size: 12px; line-height: 1.5; color: var(--muted)}
+.dashboard-refined .briefing-highlights p {font-size: 14px; line-height: 1.65; max-width: 65ch}
+
+/* The inspector belongs to the Dashboard, so it stays clear of the docked assistant. */
+.dashboard-refined .dashboard-inspector {position: absolute; top: 96px; bottom: 84px; right: 24px; width: min(420px,calc(100% - 48px)); z-index: 14; border: 0; border-radius: 12px; box-shadow: -12px 8px 36px #0006; background: var(--surface-2); animation: inspector-enter 180ms var(--dashboard-ease)}
+.dashboard-refined .dashboard-inspector .pane-heading {padding: 16px 20px; border-bottom: 1px solid var(--border)}
+.dashboard-refined .dashboard-inspector .pane-scroll {padding: 20px; max-height: none}
+.dashboard-refined .desktop-usage {gap: 12px 20px; width: calc(100% - 64px); max-width: 1728px; margin: 0 auto 20px; padding: 12px 16px; min-height: 58px; border: 0; border-top: 1px solid var(--border); border-radius: 0 0 8px 8px; background: #17130e}
+.dashboard-refined .usage-label {display: flex; font-size: 13px; gap: 8px}
+.dashboard-refined .usage-reading {display: flex; align-items: baseline; gap: 6px 12px; flex-wrap: wrap; min-width: 0}
+.dashboard-refined .usage-reading strong {font-size: 15px; font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums}
+.dashboard-refined .usage-reading small {font-size: 12px; color: var(--muted)}
+.dashboard-refined .desktop-usage .segmented button {min-height: 32px; font-size: 13px}
+.dashboard-refined .desktop-usage>.text-button {margin-left: auto; flex-shrink: 0}
+
+/* B: a permanent ivory inset, with all interaction states visible at rest. */
+.needs-attention {
+  container: attention / inline-size;
+  --art-line: #80705a; --art-paper: #f7efdf; --art-face: #e7d8bb; --art-side: #cec0a7; --art-accent: #b8691d;
+  --attention-text: #eee5d5; --attention-muted: #bcaf99;
+  background: #242019; border: 1px solid #64543d; border-radius: 13px;
+  overflow: hidden; flex: none; min-width: 0; color: var(--attention-text);
+}
+.attention-heading {display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 20px 24px 0}
+.attention-heading h2 {display: flex; align-items: center; gap: 10px; margin: 0; font: 500 18px/1.4 Geist,system-ui,sans-serif; letter-spacing: -.01em; color: inherit}
+.attention-heading h2>svg {color: #e8a860; stroke-width: 1.7}
+.attention-material {font: italic 21px/1 'Instrument Serif',serif; color: var(--attention-muted)}
+.attention-composition {
+  --attention-text: var(--material-ink); --attention-muted: var(--material-muted);
+  display: grid; grid-template-columns: minmax(180px,36%) minmax(0,1fr); align-items: center;
+  min-height: 288px; padding: 24px 32px 24px 16px; gap: 24px; margin: 16px 12px 0;
+  border-radius: 6px; color: var(--attention-text); background: var(--material-ivory);
+  transition: background-color var(--dashboard-material) var(--dashboard-ease);
+}
+.attention-copy {grid-column: 2; grid-row: 1; min-width: 0; position: relative; z-index: 1; max-width: 42ch}
+.attention-content {max-height: 216px; overflow: auto; overscroll-behavior: contain; padding: 4px; margin: -4px; scrollbar-color: #80705a transparent}
+.dashboard-refined .attention-content .pane-empty {padding: 0}
+.dashboard-refined .attention-content .pane-empty h3 {font: 500 25px/1.24 Geist,system-ui,sans-serif; letter-spacing: -.025em; max-width: 22ch; margin: 0 0 16px; color: inherit; text-wrap: balance}
+.dashboard-refined .attention-content .pane-empty p,.attention-scope {font-size: 14px; line-height: 1.6; color: var(--attention-muted); max-width: 38ch; margin: 0}
+.attention-content .attention-row {color: inherit; border-color: #bead90; padding: 10px 0}
+.attention-content .attention-row strong {font-size: 17px}
+.attention-content .attention-row small {color: var(--attention-muted); font-size: 12px}
+.attention-content .attention-row:where(:hover,[aria-pressed=true]) {background: #e3d5bb; color: inherit}
+.attention-scope {margin-top: 12px}
+.attention-action {display: inline-flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 40px; padding: 10px 16px; margin-top: 24px; background: #30291f; border: 1px solid transparent; border-radius: 5px; color: #f7eddb; font: 500 14px/1.4 Geist,system-ui,sans-serif; text-align: left}
+.attention-action:disabled {opacity: .55; cursor: not-allowed}
+.attention-action>svg {flex-shrink: 0; transition: transform var(--dashboard-feedback) var(--dashboard-ease)}
+.attention-action:where(:hover,:focus-visible)>svg {transform: translateX(2px)}
+.attention-footer {display: flex; align-items: center; gap: 4px 20px; flex-wrap: wrap; min-height: 56px; margin: 0 24px; padding: 8px 0 12px; color: var(--attention-muted)}
+.attention-footer .text-button {color: inherit}
+.attention-art {grid-column: 1; grid-row: 1; min-width: 0; pointer-events: none; display: flex; align-items: center; justify-content: center; align-self: stretch}
+.correspondence-object {width: 100%; height: auto; max-height: 256px; overflow: visible; stroke-width: 1.1; stroke-linejoin: round; stroke-linecap: round; fill: none; color: var(--art-line)}
+.object-line,.object-ground,.object-registration {stroke: var(--art-line); fill: none}
+.object-ground {opacity: .28}.object-registration {opacity: .48}.faint {opacity: .5}
+.object-paper {fill: var(--art-paper); stroke: var(--art-line)}
+.object-face {fill: var(--art-face); stroke: var(--art-line)}
+.object-side {fill: var(--art-side); stroke: var(--art-line)}
+.object-tab,.object-seal {fill: var(--art-accent); stroke: var(--art-accent)}
+.seal-mark {stroke: var(--art-side); stroke-width: 1.3}
+.letter-lift,.letter-back {transition: transform var(--dashboard-material) var(--dashboard-ease)}
+.needs-attention:where(:hover,:focus-within) .attention-composition {background: #f7ecd6}
+.needs-attention:where(:hover,:focus-within) .attention-action {background: #68411b; color: #fff4e0}
+.needs-attention:where(:hover,:focus-within) .letter-lift {transform: translateY(-11px)}
+.needs-attention:where(:hover,:focus-within) .letter-back {transform: translate(5px,-5px)}
+.needs-attention button:focus-visible {outline: 2px solid var(--attention-text); outline-offset: 4px}
+
+@container dashboard (max-width: 1200px) {
+  .dashboard-refined .dashboard-toolbar {padding: 24px; min-height: 104px}
+  .dashboard-refined .dashboard-reading {padding: 0 24px 24px}
+  .dashboard-refined .dashboard-columns {gap: 20px; grid-template-columns: minmax(0,1.6fr) minmax(280px,1fr)}
+  .dashboard-refined .dashboard-main-column,.dashboard-refined .dashboard-context-column {gap: 20px}
+  .dashboard-refined .desktop-usage {width: calc(100% - 48px); gap: 8px 16px; margin-bottom: 16px}
+  .dashboard-refined .pane-heading {padding: 20px 20px 8px}
+  .dashboard-refined .pane-scroll {padding: 12px 20px 16px}
+  .dashboard-refined .pane-footer {padding: 0 20px 20px}
+}
+@container dashboard (max-width: 1050px) {
+  .dashboard-refined .dashboard-columns {grid-template-columns: 1fr}
+  .dashboard-refined .dashboard-context-column {display: grid; grid-template-columns: 1fr 1fr; align-items: start}
+  .dashboard-refined .dashboard-main-column {display: contents}
+  .dashboard-refined .briefing-pane {max-height: 340px}
+  .dashboard-refined .desktop-usage>.text-button {margin-left: 0}
+  .dashboard-refined .usage-reading {flex: 1}
+}
+@container attention (max-width: 700px) {
+  .attention-composition {grid-template-columns: minmax(132px,30%) minmax(0,1fr); gap: 16px; min-height: 272px; padding: 24px 24px 24px 8px}
+  .correspondence-object {max-height: 212px}
+  .attention-action {gap: 12px; padding: 10px 14px}
+}
+@container attention (max-width: 480px) {
+  .attention-composition {grid-template-columns: 1fr; gap: 8px; padding: 16px 24px 24px}
+  .attention-art {grid-column: 1; grid-row: 1; height: 136px}
+  .correspondence-object {max-height: 160px; max-width: 180px}
+  .attention-copy {grid-column: 1; grid-row: 2; max-width: none}
+  .attention-heading {padding: 20px 20px 0}
+  .attention-footer {margin: 0 20px}
+}
+@container dashboard (max-width: 620px) {
+  .dashboard-refined .dashboard-toolbar {padding: 20px 16px; align-items: flex-start; flex-direction: column; gap: 16px}
+  .dashboard-refined .dashboard-reading {padding: 0 16px 20px}
+  .dashboard-refined .dashboard-columns {display: grid}
+  .dashboard-refined .dashboard-context-column {display: flex}
+  .dashboard-refined .desktop-usage {width: calc(100% - 32px); padding: 12px; gap: 8px 12px}
+  .dashboard-refined .usage-reading {flex-basis: 100%}
+  .dashboard-refined .dashboard-inspector {top: 140px; bottom: 120px; right: 16px; width: calc(100% - 32px)}
+}
+@media(prefers-reduced-motion:reduce) {
+  .dashboard-refined .letter-lift,.dashboard-refined .letter-back,.dashboard-refined .attention-action>svg,.dashboard-refined .agenda-entry>svg {transform: none!important}
+}
+:root[data-motion=reduced] .dashboard-refined .letter-lift,:root[data-motion=reduced] .dashboard-refined .letter-back,:root[data-motion=reduced] .dashboard-refined .attention-action>svg,:root[data-motion=reduced] .dashboard-refined .agenda-entry>svg {transform: none!important}

@@ -1,0 +1,43 @@
+import { situationEvidence } from '../situation/evidence';
+import type { SituationSnapshot } from '../../src/shared/situation';
+import { randomUUID } from 'node:crypto';
+import { briefingSnapshotSchema,type BriefingSnapshot,type BriefingEntry } from '../../src/shared/daily-intelligence';
+import { addDays,dateInZone,eventOnDate,type CalendarData } from '../../src/shared/google';
+import { currentAssessments,assessmentState } from '../../src/shared/assessment';
+import type { LocalTask } from '../../src/shared/assistant';
+import type { AgentContext,AgentRun,AgentState } from '../../src/shared/orchestration';
+import type { ResourceRef } from '../../src/shared/modules';
+import { hash } from './catalogue';
+
+export type BriefingAction={id:string;accountId:string;kind:string;title:string;status:string;revision:string;createdAt:string;expiresAt:string};
+export type BriefingInputs={accountId:string|null;now:number;timezone:string;trigger:BriefingSnapshot['trigger'];state:AgentState;authorityRevision:string;calendar?:CalendarData;calendarStatus?:'disabled'|'unavailable';tasks?:LocalTask[];runs?:AgentRun[];actions?:BriefingAction[];plannerEnabled:boolean;inboxEnabled:boolean;situation?:SituationSnapshot};
+export function buildBriefing(input:BriefingInputs):BriefingSnapshot {
+ const {accountId,now,timezone,state}=input,createdAt=new Date(now).toISOString(),date=dateInZone(new Date(now),timezone),endDate=addDays(date,7);
+ const entries:BriefingEntry[]=[],coverage:BriefingSnapshot['coverage']=[];
+ const add=(kind:BriefingEntry['kind'],section:BriefingEntry['section'],ref:ResourceRef,detail:string,shared:boolean,freshness:BriefingEntry['freshness']='current')=>{const title=ref.label.slice(0,240),text=detail.slice(0,2400);entries.push({id:kind+':'+hash({id:ref.id,accountId:ref.accountId}).slice(0,24),kind,section,ref:{...ref,label:title},title,detail:text,freshness,sensitivity:'private',sharing:shared?'workflow-permitted':'local-only',estimatedTokens:Math.ceil((title.length+text.length)/4)});};
+ const ref=(type:ResourceRef['type'],id:string,label:string,revision:string,fetchedAt:string,sourceAccount=accountId,runId:string|null=null):ResourceRef=>({type,id,label:label.slice(0,240),revision,accountId:sourceAccount,profile:'local',module:type==='email'?'inbox':type==='briefing'?'dashboard':'planner',connector:type==='email'||type==='calendar'?'google':'local',provenance:{kind:runId?'workflow':type==='task'?'user':'connector',runId,fetchedAt},access:type==='briefing'?'review':'read',retention:{kind:'retained',expiresAt:null}});
+ const calendar=input.calendar,valid=calendar&&calendar.accountId===accountId&&calendar.timezone===timezone&&calendar.startDate===date&&calendar.endDate===endDate&&Math.abs(now-Date.parse(calendar.fetchedAt))<=300000;
+ const events=valid?[...calendar.events].sort((a,b)=>(a.time.kind==='timed'?a.time.start:a.time.startDate).localeCompare(b.time.kind==='timed'?b.time.start:b.time.startDate)):[];
+ for(const e of events.slice(0,12)){const time=e.time,day=time.kind==='allDay'?time.startDate:dateInZone(new Date(time.start),timezone);add('calendar',eventOnDate(e,date,timezone)?'today':'ahead',{...ref('calendar',e.id,e.title,hash(e),calendar!.fetchedAt),date:day},JSON.stringify({time,status:e.status,recurringEventId:e.recurringEventId,originalStart:e.originalStart}),state.config.shareGoogle);}
+ coverage.push({source:'calendar',status:valid?(calendar.truncated||calendar.skipped||events.length>12?'partial':'available'):input.calendarStatus??'unavailable',detail:valid?`Primary calendar, ${date} to ${endDate} (exclusive). ${calendar.skipped} unsupported events omitted. ${calendar.truncated?'Provider range truncated. ':''}Attendance and free time are not established.`:'Calendar range unavailable; no availability or attendance can be inferred.',fetchedAt:valid?calendar.fetchedAt:null,included:Math.min(events.length,12),total:valid?events.length:null});
+ const tasks=input.plannerEnabled?input.tasks?.filter(t=>((t.accountId??null)===accountId||!t.accountId)&&t.status==='open').sort((a,b)=>{const due=(t:LocalTask)=>t.due.kind==='none'?'9999':t.due.kind==='date'?t.due.date:t.due.at;return due(a).localeCompare(due(b))||a.id.localeCompare(b.id);}):undefined;
+ for(const t of tasks?.slice(0,12)??[])add('task','tasks',ref('task',t.id,t.title,hash(t),createdAt,t.accountId??null),JSON.stringify({due:t.due,status:t.status,reminderDismissed:t.remindedAt!==null}),state.config.shareTasks&&!!accountId&&t.accountId===accountId);
+ coverage.push({source:'tasks',status:!input.plannerEnabled?'disabled':!tasks?'unavailable':tasks.length>12?'partial':'available',detail:tasks?`${tasks.length} open tasks in this account and unassigned local tasks. Completed tasks excluded.`:'Local task source unavailable.',fetchedAt:tasks?createdAt:null,included:Math.min(tasks?.length??0,12),total:tasks?.length??null});
+ const assessments=input.inboxEnabled&&input.runs?currentAssessments(input.runs,accountId).filter(r=>{const a=assessmentState(r,state.feedback);return r.decision&&a.status==='active'&&(a.priority==='high'||a.priority==='unknown');}):[];
+ for(const run of assessments.slice(0,8)){const s=run.context.items.find(s=>s.kind==='email'&&s.resourceId===run.event.resourceId);if(s)add('attention','attention',ref('email',s.resourceId,s.title,s.revision,s.fetchedAt,accountId,run.id),assessmentState(run,state.feedback).priority==='high'?'Generated high-priority assessment; open the source to review.':'Generated assessment needs review; priority is unknown.',state.config.shareGoogle,'retained');}
+ coverage.push({source:'attention',status:!input.inboxEnabled?'disabled':!input.runs?'unavailable':'partial',detail:'Latest generated assessments only, not an inbox-wide review. Items marked not relevant or resolved elsewhere are excluded.',fetchedAt:input.runs?createdAt:null,included:Math.min(assessments.length,8),total:input.runs?assessments.length:null});
+ // Workflow runs and pending proposals are operational state, not daily content.
+ // Keep the legacy coverage key for stored snapshot compatibility; Work owns it.
+ coverage.push({source:'approvals',status:'disabled',detail:'Workflow activity, proposals and approvals are shown in Work and Needs Attention, not Briefing.',fetchedAt:null,included:0,total:null});
+ const situation = situationEvidence(input.situation,accountId,now);
+ entries.push(...situation.entries);
+ const body={version:1 as const,accountId,profile:'local' as const,date,endDate,timezone,entries,coverage,connectors:situation.connectors,authorityRevision:input.authorityRevision};
+ return briefingSnapshotSchema.parse({...body,id:randomUUID(),createdAt,trigger:input.trigger,revision:hash({...body,entries:entries.map(e=>({...e,ref:{...e.ref,provenance:{...e.ref.provenance,fetchedAt:undefined}}})),coverage:coverage.map(c=>({...c,fetchedAt:undefined}))})});
+}
+export function briefingContext(snapshot:BriefingSnapshot):AgentContext {
+ const selected:BriefingEntry[]=[],counts={calendar:0,task:0,attention:0,approval:0,workflow:0,situation:0};let size=0;
+ for(const entry of snapshot.entries){if(entry.kind==='situation')continue;if(entry.sharing!=='workflow-permitted'||counts[entry.kind]>=6)continue;const bytes=Buffer.byteLength(entry.title+entry.detail);if(size+bytes>10000||selected.length>=20)continue;size+=bytes;counts[entry.kind]++;selected.push(entry);}
+ const counters={calendar:0,task:0,email:0};const items:AgentContext['items']=selected.map(e=>{const kind=e.kind==='attention'?'email':e.kind==='calendar'?'calendar':'task';return{id:({calendar:'E',task:'T',email:'M'}[kind])+(++counters[kind]),kind,accountId:e.ref.accountId!,resourceId:e.ref.id,revision:e.ref.revision,title:e.title,text:e.detail,fetchedAt:e.ref.provenance.fetchedAt,trust:'untrusted-source' as const,senderScope:null,threadId:null};});
+ const limitations=[...snapshot.coverage.map(c=>c.source+': '+c.status+'. '+c.detail),`Today ${snapshot.date}; range ends ${snapshot.endDate}. Weather and traffic not configured.`, 'No attendance, task completion, commitments, unknown durations or conflict resolution may be inferred. Retained assessments are not live mail.',`${snapshot.entries.length-selected.length} entries excluded by sharing or context bounds. Approval details are local-only.`];
+ return{id:snapshot.id,hash:hash({snapshotRevision:snapshot.revision,items}),createdAt:snapshot.createdAt,timezone:snapshot.timezone,items,limitations,available:{calendar:snapshot.coverage[0].status==='available'&&counts.calendar===snapshot.coverage[0].included,tasks:snapshot.coverage[1].status==='available'&&counts.task===snapshot.coverage[1].included,thread:false},sharing:{google:selected.some(e=>e.ref.connector==='google'),tasks:selected.some(e=>e.kind==='task')}};
+}

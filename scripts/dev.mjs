@@ -1,0 +1,17 @@
+import { createServer } from 'vite';
+import { spawn } from 'node:child_process';
+import electron from 'electron';
+import { build } from 'esbuild';
+import { buildDesktopObserver } from './build-desktop-observer.mjs';
+import { buildRelaySetup } from './build-relay-setup.mjs';
+const observerIdentity = await buildDesktopObserver();
+const relaySetupIdentity = await buildRelaySetup();
+for (const [input, output] of [['electron/main.ts','main.cjs'], ['electron/preload.ts','preload.cjs'], ['electron/storage/worker.ts','storage-worker.cjs']]) await build({ entryPoints: [input], define: { __MOMO_DESKTOP_OBSERVER_IDENTITY__: JSON.stringify(observerIdentity), __MOMO_RELAY_SETUP_IDENTITY__: JSON.stringify(relaySetupIdentity) }, bundle: true, platform: 'node', format: 'cjs', target: 'node24', external: ['electron','better-sqlite3'], outfile: 'dist-electron/' + output });
+const worker = await build({ entryPoints: ['node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs'], bundle: true, platform: 'browser', format: 'esm', target: 'chrome144', write: false });
+const server = await createServer();
+server.middlewares.use('/assets/maplibre-worker.js', (_request, response) => { response.setHeader('Content-Type', 'text/javascript'); response.end(worker.outputFiles[0].contents); });
+await server.listen();
+const env = { ...process.env }; delete env.ELECTRON_RUN_AS_NODE;
+const child = spawn(electron, ['.', '--dev'], { env, stdio: 'inherit', windowsHide: true });
+child.on('exit', async code => { await server.close(); process.exitCode = code ?? 0; });
+process.on('SIGINT', () => child.kill());

@@ -1,0 +1,17 @@
+#include <windows.h>
+#include "resource.h"
+
+IDD_SETUP DIALOGEX 0, 0, 350, 192
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "MoMo Relay - secure local setup"
+FONT 9, "Segoe UI"
+BEGIN
+    LTEXT "Enter the replacement restricted key from Twilio. It stays encrypted for this Windows user.", IDC_INTRO, 14, 12, 322, 28
+    LTEXT "API Key SID (starts with SK)", IDC_FIRST_LABEL, 14, 45, 322, 12
+    EDITTEXT IDC_FIRST, 14, 60, 322, 16, ES_AUTOHSCROLL
+    LTEXT "API Key Secret", IDC_SECOND_LABEL, 14, 87, 322, 12
+    EDITTEXT IDC_SECOND, 14, 102, 322, 16, ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT "", IDC_STATUS, 14, 127, 322, 26
+    DEFPUSHBUTTON "Store securely", IDOK, 183, 162, 82, 20
+    PUSHBUTTON "Cancel", IDCANCEL, 273, 162, 63, 20
+END

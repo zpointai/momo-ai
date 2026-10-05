@@ -1,0 +1,20 @@
+.scheduling-panel { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); min-width: 0; }
+.scheduling-heading { display: flex; align-items: center; gap: 8px; text-align: left; }
+.scheduling-content { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding-top: 10px; }
+.scheduling-panel p { margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.scheduling-content > button { align-self: flex-start; white-space: normal; text-align: left; }
+.scheduling-facts { display: grid; gap: 8px; }
+.scheduling-facts ul { padding-left: 20px; margin: 0; }
+.scheduling-form { display: grid; gap: 10px; }
+.scheduling-form label { display: grid; gap: 5px; min-width: 0; }
+.scheduling-form input, .scheduling-form select { width: 100%; min-width: 0; }
+.scheduling-clock-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+.scheduling-stale { color: var(--text); font-weight: 600; }
+.scheduling-reply-preview { white-space: pre-wrap; }
+.scheduling-followup { display: flex; flex-wrap: wrap; gap: 8px; }
+.scheduling-content details { min-width: 0; }
+.scheduling-content details > p, .scheduling-content details > button { margin-top: 8px; }
+.scheduling-content details > button { white-space: normal; text-align: left; }
+
+.planner-calendar-actions .calendar-update-review { overflow: visible; max-height: none; border: 0; border-radius: 0; box-shadow: none; }
