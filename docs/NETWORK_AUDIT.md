@@ -1,12 +1,12 @@
 # Packaged first-run network audit
 
-**PASS — bounded local observation on 2026-10-04.** The current Windows package was launched with an empty disposable profile, only normal OS environment variables, and no integration configuration. All nine views were visited: Dashboard, Mo, Work, Inbox, Planner, Situation View, Relay, Home Automation and Settings. No product source or network behavior was changed.
+**PASS — bounded local observation on 2026-10-04.** The current Windows package was launched with an empty disposable profile, only normal OS environment variables, and no integration configuration. All nine views were visited: Dashboard, Mo, Work, Inbox, Planner, Situation View, Relay, Home Automation and Settings. The run used the final LLVM-MinGW package. Product network behavior was unchanged.
 
 ## Observation and proof
 
 `scripts/release-audit/first-run.mjs` starts the actual packaged EXE with a loopback debugger paused before its first main-module statement. The paused script must equal the current main build. Pass-through hooks observe Node fetch/undici, HTTP, HTTPS, TCP, TLS, DNS callback/promise/resolver APIs, UDP, WebSocket and child-process creation. The storage worker receives an explicit argument list omitting the audit debugger flag, avoiding an inherited debugger pause. Its production code is unchanged.
 
-Complete Chromium netlog runs from process launch through graceful shutdown. Windows CIM process ancestry and PID-filtered TCP/UDP queries observe the application and descendants; there is no packet driver, firewall change, payload recording or unrelated socket logging. The final run collected 51 process/socket samples. Product navigation lasted about 22 seconds, including two seconds after each verified view transition; initialization and shutdown are also observed.
+Complete Chromium netlog runs from process launch through graceful shutdown. Windows CIM process ancestry and PID-filtered TCP/UDP queries observe the application and descendants; there is no packet driver, firewall change, payload recording or unrelated socket logging. The final run collected 50 process/socket samples. Product navigation lasted about 22 seconds, including two seconds after each verified view transition; initialization and shutdown are also observed.
 
 After the product window, a separately labelled loopback canary exercises fetch, HTTP, HTTPS/TLS (intentional local handshake failure), TCP, DNS lookup and a loopback DNS responder, UDP and WebSocket. Every API family was recorded. A held TCP connection from the main process and another from a short-lived Node child were both detected by Windows socket observation. Canary events are excluded from product findings. Audit scripts and raw traces are excluded from the shipped application.
 

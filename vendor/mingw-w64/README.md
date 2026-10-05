@@ -1,0 +1,9 @@
+# Wine-derived API declaration source
+
+These are the exact LGPL-marked headers used by the two project helper compilations from LLVM-MinGW 20260922 / MinGW-w64 commit `57b595039040eaa15bece85b7cc71d952281b269`. They are unchanged Windows UI Automation API declarations, not a Wine implementation library. Original notices and the full LGPL 2.1 text are retained. This supplies declaration source in addition to the interface-use provisions of LGPL section 5.
+
+Upstream: [pinned MinGW-w64 headers](https://github.com/mingw-w64/mingw-w64/tree/57b595039040eaa15bece85b7cc71d952281b269/mingw-w64-headers/include). The headers are `UIAutomation.h` (upstream lowercase filename) and `uiautomationcoreapi.h`. The compiler dependency audit covered 867 included headers across both helpers; these two carried LGPL notices. No generated IDL source is needed for these two handwritten headers.
+
+Complete MoMo helper source and standalone build scripts accompany the Windows package in the adjacent `native-helpers` directory. From that directory, use Node.js 24+ to run `node scripts/setup-native-toolchain.mjs`, then `node scripts/build-desktop-observer.mjs` and `node scripts/build-relay-setup.mjs`. The setup verifies the pinned archive before extraction. For changed header declarations, modify the corresponding files under that downloaded toolchain's `include` directory and rebuild; setup extraction would restore upstream files if repeated afterward.
+
+Outputs are written to `dist-electron`. To integrate modified helpers into MoMo, rebuild the full MIT desktop source so that its embedded security identities match. Recipients may modify, rebuild, relink and debug these components. Applicable LLVM and MinGW runtime notices are supplied separately under `licenses/llvm-mingw` in the Windows distribution and source checkout.

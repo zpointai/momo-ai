@@ -4,7 +4,7 @@
     "width": 1920,
     "height": 1080
   },
-  "mainSha256": "94b9516a8b22d58624d6e0ced1411f3303dac363f4768bce2d510c218a1d7a85",
+  "mainSha256": "517ae7a9b55ad59fc7bf6cc1a2ec2e5f3f7da25a29a76156ce309d5e6654a527",
   "rendererFiles": [
     {
       "file": "index-Ce_5J4Yc.js",
@@ -36,7 +36,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "492e7478b829e5943dc0c0918f275eb962998bb3928c75327945220762decbd6",
+      "sha256": "58e548f7bb59be722075aafefa3276f0bd78cc505b352629709cc0e019ea38db",
       "provenance": "Empty account/task profile with the fictional Relay attention item from the documentation fixture; no saved places or clocks."
     },
     {
@@ -60,7 +60,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "2fa5b174307a543d00b5721ab7d5da485a49a05053703d2bc67ad35bdc813efd",
+      "sha256": "a133b89cbdc80b22a9661d103b849f2c325797bca6f2a8552c9713ea3c28797e",
       "provenance": "Empty Mo pane; AI requests disabled and no provider key."
     },
     {
@@ -84,7 +84,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "ecef0ca5d9ab7265644f30fd537ea70ad5ce8284bd180437726e6f5b33252a77",
+      "sha256": "ac2b717b5ba73311c89a6dcab4e109d2b1905f997fb5ed0439136b7c7e5eab88",
       "provenance": "Honest empty Work and approval state."
     },
     {
@@ -100,7 +100,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "f5d4c391d797e2045d1eaa5ca8b670ae90454908f5b6f571ca9404151a6dcb93",
+      "sha256": "8e151d67aac51532e6112ef337f18b5421bdabef82ab7a96ae16d26b8fcc772f",
       "provenance": "Honest empty/setup state; UTC demo preference."
     },
     {
@@ -116,7 +116,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "07ddf783de57b7f8420582ab332d486533c385cc30650cb42f40efa96d046d85",
+      "sha256": "faef245ddc9955a78b07f7cf5be8722a60f2a79eda76c8259a71d6ed77e2c2b9",
       "provenance": "Honest empty/setup state; UTC demo preference."
     },
     {
@@ -137,7 +137,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "cfa6ddf4184a4487b91a318d7a586f497475e76b60c23c8a3ff23dae07a147a9",
+      "sha256": "0424fd540a182c7a9c9d9d681a6dffbc1669b0ef876ee5c4ae80f474751c2508",
       "provenance": "Documentation-only public Paris city coordinate; no saved route, private clock, weather or traffic data."
     },
     {
@@ -156,7 +156,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "c2d904322e58f8d0c269bd2608486142daa03abe305c393a0a7d6981aa5986a6",
+      "sha256": "1f11a0eb04afc2f17e52a219fef3d6c3db89a9096cc2fff351316ad275608256",
       "provenance": "Documentation-only synthetic held message; provider remains unconfigured."
     },
     {
@@ -177,7 +177,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "27ea474ff52f23a8de7c8a8be9b07ffcb71d3296c67d407d0ab143a999d18554",
+      "sha256": "59047c4852ca47504e265dc875313120b5a431048b1434db5d23ba39745bffea",
       "provenance": "Documentation-only simulated mapped light (H6000), no live discovery or control."
     },
     {
@@ -194,7 +194,7 @@
         "width": 1920,
         "height": 1080
       },
-      "sha256": "6ac75b45a49ac971f901543554b6fc9fe04168fd8cd91e3b9c37ba880f1187fa",
+      "sha256": "6c4f3289fae6527286946e3aa8467596dd452873ad28f83beaea08eadd2bce3c",
       "provenance": "Honest empty/setup state; UTC demo preference."
     }
   ]

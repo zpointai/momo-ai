@@ -12,7 +12,7 @@ import { observationTreeDataSchema } from '../../src/shared/desktop-observation'
 
 export const helperIdentitySchema = z.object({ protocol: z.literal(1), helperVersion: z.literal('0.1.0'),
   buildId: z.string().regex(/^[a-f0-9]{64}$/), sha256: z.string().regex(/^[a-f0-9]{64}$/),
-  architecture: z.literal('x64'), runtime: z.literal('static-msvc'), bytes: z.number().int().positive().max(16777216),
+  architecture: z.literal('x64'), runtime: z.literal('static-llvm-mingw-ucrt'), bytes: z.number().int().positive().max(16777216),
 }).strict();
 export type HelperIdentity = z.infer<typeof helperIdentitySchema>;
 declare const __MOMO_DESKTOP_OBSERVER_IDENTITY__: HelperIdentity;

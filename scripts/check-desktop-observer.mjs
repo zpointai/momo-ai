@@ -1,11 +1,11 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { spawnSync } from 'node:child_process';
+import { inspectNative } from './native-toolchain.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const files = ['main.cpp', 'observation.cpp', 'observation.h', 'protocol.h', 'observer.manifest', 'desktop-observer.vcxproj'];
+const files = ['main.cpp', 'observation.cpp', 'observation.h', 'protocol.h', 'observer.manifest'];
 export async function checkDesktopObserver() {
   const contents = new Map(await Promise.all(files.map(async name => [name, await readFile(path.join(root, 'native', 'desktop-observer', name), 'utf8')])));
   const cpp = ['main.cpp', 'observation.cpp', 'observation.h', 'protocol.h'].map(name => contents.get(name)).join('\n').replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, '');
@@ -22,7 +22,7 @@ export async function checkDesktopObserver() {
   if (comCalls.some(name => !allowedComCalls.has(name))) throw new Error('Unreviewed COM call.');
   const observation = contents.get('observation.cpp');
   if (!observation.includes('put_AutoSetFocus(FALSE)') || !observation.includes('GetCurrentPropertyValueEx(id, TRUE') || !observation.includes('if (protectionKnown && !protectedValue && functional(type))')) throw new Error('Protection-first property gate missing.');
-  if (!contents.get('observer.manifest').includes('level="asInvoker" uiAccess="false"') || !contents.get('desktop-observer.vcxproj').includes('<RuntimeLibrary>MultiThreaded</RuntimeLibrary>')) throw new Error('Native privilege/runtime policy changed.');
+  if (!contents.get('observer.manifest').includes('level="asInvoker" uiAccess="false"')) throw new Error('Native privilege/runtime policy changed.');
   if (!contents.get('protocol.h').includes('Hello = 1, List = 2, Authorize = 3, Observe = 4')) throw new Error('Native protocol vocabulary changed.');
   return { scope: 'Production C++ source and closed direct UIA call/property vocabulary; not a formal proof about Windows/provider side effects.', prohibitedCallNamesChecked: prohibited.length, prohibitedCallsFound: violations, callablePatternInterfacesFound: 0,
     directComCalls: comCalls, propertyIds: properties, maximumPropertiesPerVisitedNode: 27, hardPropertyCeiling: 32,
@@ -30,22 +30,9 @@ export async function checkDesktopObserver() {
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const evidence = await checkDesktopObserver();
-  const vswhere = path.join(process.env['ProgramFiles(x86)'] ?? 'C:\\Program Files (x86)', 'Microsoft Visual Studio', 'Installer', 'vswhere.exe');
-  const found = spawnSync(vswhere, ['-latest', '-products', '*', '-requires', 'Microsoft.VisualStudio.Component.VC.Tools.x86.x64', '-property', 'installationPath'], { shell: false, windowsHide: true, encoding: 'utf8' });
-  if (found.status !== 0) throw new Error('Could not locate dumpbin for dependency evidence.');
-  const version = (await readFile(path.join(found.stdout.trim(), 'VC', 'Auxiliary', 'Build', 'Microsoft.VCToolsVersion.default.txt'), 'utf8')).trim();
-  const dumpbin = path.join(found.stdout.trim(), 'VC', 'Tools', 'MSVC', version, 'bin', 'Hostx64', 'x64', 'dumpbin.exe');
-  const result = spawnSync(dumpbin, ['/nologo', '/dependents', path.join(root, 'dist-electron', 'desktop-observer', 'momo-desktop-observer.exe')], { shell: false, windowsHide: true, encoding: 'utf8' });
-  if (result.status !== 0) throw new Error('Native dependency inspection failed.');
-  const dependencies = [...new Set(result.stdout.match(/[A-Za-z0-9_.-]+\.dll/gi) ?? [])];
-  if (dependencies.some(name => /^(?:vcruntime|msvcp|ucrtbase)/i.test(name))) throw new Error('Unexpected dynamic C++ runtime dependency.');
-  const directory = path.join(root, 'artifacts', 'desktop-observation-step2a'); await mkdir(directory, { recursive: true });
-  const mt = path.join(process.env['ProgramFiles(x86)'] ?? 'C:\\Program Files (x86)', 'Windows Kits', '10', 'bin', '10.0.19041.0', 'x64', 'mt.exe');
-  const manifestFile = path.join(directory, 'embedded-manifest.xml');
-  const manifestResult = spawnSync(mt, ['-nologo', `-inputresource:${path.join(root, 'dist-electron', 'desktop-observer', 'momo-desktop-observer.exe')};#1`, `-out:${manifestFile}`], { shell: false, windowsHide: true, encoding: 'utf8' });
-  if (manifestResult.status !== 0) throw new Error('Embedded native manifest extraction failed.');
-  const embedded = await readFile(manifestFile, 'utf8');
-  if (!/level="asInvoker"/.test(embedded) || !/uiAccess="false"/.test(embedded)) throw new Error('Embedded native privilege manifest mismatch.');
+  const inspection = await inspectNative(path.join(root, 'dist-electron/desktop-observer/momo-desktop-observer.exe'), path.join(root, 'native/desktop-observer/observer.manifest'));
+  const dependencies = inspection.dependencies;
+  const directory = path.join(root, 'artifacts-public', 'native-audit'); await mkdir(directory, { recursive: true });
   await writeFile(path.join(directory, 'native-audit.json'), JSON.stringify({ ...evidence, dependencies, embeddedManifest: { level: 'asInvoker', uiAccess: false }, binaryIdentity: JSON.parse(await readFile(path.join(root, 'dist-electron', 'desktop-observer', 'identity.json'), 'utf8')) }, null, 2) + '\n');
   console.log(JSON.stringify({ prohibitedCallNamesChecked: evidence.prohibitedCallNamesChecked, prohibitedCallsFound: 0, callablePatternInterfacesFound: 0, dependencies }));
 }

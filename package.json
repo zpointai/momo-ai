@@ -21,7 +21,9 @@
     "test:relay": "npm --prefix cloud/mo-relay test",
     "security:scan": "node scripts/security-scan.mjs",
     "license:audit": "node scripts/license-audit.mjs",
-    "setup:dependencies": "node scripts/setup-dependencies.mjs"
+    "setup:dependencies": "node scripts/setup-dependencies.mjs",
+    "setup:native": "node scripts/setup-native-toolchain.mjs",
+    "test:native": "node scripts/test-native-helpers.mjs"
   },
   "dependencies": {
     "better-sqlite3": "13.0.3"
@@ -77,6 +79,14 @@
     "asar": true,
     "extraResources": [
       {
+        "from": "dist-electron/native-source",
+        "to": "third-party-source/native-helpers"
+      },
+      {
+        "from": "vendor/mingw-w64",
+        "to": "third-party-source/mingw-w64"
+      },
+      {
         "from": "vendor/ffmpeg",
         "to": "third-party-source/ffmpeg"
       },
@@ -98,11 +108,30 @@
       }
     ],
     "extraFiles": [
-      { "from": "RUNTIME_NOTICES.md", "to": "RUNTIME_NOTICES.md" },
-      { "from": "licenses/microsoft", "to": "licenses/microsoft" },
-      { "from": "docs/RUNTIME_REDISTRIBUTION.md", "to": "RUNTIME_REDISTRIBUTION.md" },
-      { "from": "THIRD_PARTY_NOTICES.md", "to": "THIRD_PARTY_NOTICES.md" },
-      { "from": "LICENSE", "to": "LICENSE.MoMo.txt" }
+      {
+        "from": "RUNTIME_NOTICES.md",
+        "to": "RUNTIME_NOTICES.md"
+      },
+      {
+        "from": "licenses/microsoft",
+        "to": "licenses/microsoft"
+      },
+      {
+        "from": "docs/RUNTIME_REDISTRIBUTION.md",
+        "to": "RUNTIME_REDISTRIBUTION.md"
+      },
+      {
+        "from": "THIRD_PARTY_NOTICES.md",
+        "to": "THIRD_PARTY_NOTICES.md"
+      },
+      {
+        "from": "LICENSE",
+        "to": "LICENSE.MoMo.txt"
+      },
+      {
+        "from": "licenses/llvm-mingw",
+        "to": "licenses/llvm-mingw"
+      }
     ],
     "asarUnpack": [
       "node_modules/better-sqlite3/**/*.node"

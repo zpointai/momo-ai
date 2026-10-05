@@ -10,7 +10,7 @@ import { WindowsObservationHelper, encodeHelperRequest, type HelperIdentity } fr
 vi.mock('node:child_process', () => ({ spawn: vi.fn() }));
 vi.mock('node:fs/promises', () => ({ readFile: vi.fn(), realpath: vi.fn(), stat: vi.fn() }));
 const bytes = Buffer.from('fixed trusted test component');
-const identity: HelperIdentity = { protocol: 1, helperVersion: '0.1.0', buildId: 'b'.repeat(64), sha256: createHash('sha256').update(bytes).digest('hex'), architecture: 'x64', runtime: 'static-msvc', bytes: bytes.length };
+const identity: HelperIdentity = { protocol: 1, helperVersion: '0.1.0', buildId: 'b'.repeat(64), sha256: createHash('sha256').update(bytes).digest('hex'), architecture: 'x64', runtime: 'static-llvm-mingw-ucrt', bytes: bytes.length };
 function frame(kind: string, sequence: number, data: unknown, patch = {}) {
   const payload = Buffer.from(JSON.stringify({ protocol: 1, helperVersion: '0.1.0', buildId: identity.buildId, sequence, kind, data, ...patch }), 'utf8');
   const header = Buffer.alloc(4); header.writeUInt32LE(payload.length); return Buffer.concat([header, payload]);

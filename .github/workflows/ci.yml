@@ -19,12 +19,8 @@ jobs:
       - run: npm test
       - run: npm run test:relay
       - run: npm run security:scan
-      - name: Install documented native helper toolchain
-        shell: pwsh
-        run: |
-          $installer = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vs_installer.exe"
-          $installation = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products '*' -property installationPath
-          $process = Start-Process -FilePath $installer -ArgumentList @('modify', '--installPath', "`"$installation`"", '--add', 'Microsoft.VisualStudio.Component.VC.v142.x86.x64', '--add', 'Microsoft.VisualStudio.Component.Windows10SDK.19041', '--quiet', '--norestart') -Wait -PassThru -WindowStyle Hidden
-          if ($process.ExitCode -notin @(0,3010)) { throw 'Required native toolchain installation failed' }
+      - run: npm run setup:native
       - run: npm run build
+      - run: npm run test:native
+      - run: node scripts/check-desktop-observer.mjs
       - run: npm run security:scan -- dist dist-electron/main.cjs dist-electron/preload.cjs dist-electron/storage-worker.cjs dist-electron/desktop-observer/momo-desktop-observer.exe dist-electron/relay-setup/momo-relay-setup.exe

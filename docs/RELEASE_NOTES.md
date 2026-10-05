@@ -10,4 +10,4 @@ Read [provider setup](PROVIDER_SETUP.md), [feature limitations](FEATURE_STATUS.m
 
 Opening Situation View can request its unauthenticated OpenFreeMap basemap before account setup. Chromium also follows Windows proxy/DNS settings. The [bounded first-run audit](NETWORK_AUDIT.md) documents these observations; no owner credentials or infrastructure are supplied. [Current screenshots](SCREENSHOTS.md) use isolated, explicitly synthetic examples.
 
-The current binary remains blocked by the [MSVC helper-runtime licensing item](RUNTIME_REDISTRIBUTION.md). Electron notices and FFmpeg corresponding source are retained in the local ZIP.
+The native-runtime licensing blocker is resolved using the [pinned LLVM-MinGW build](NATIVE_BUILD.md). Electron notices, FFmpeg corresponding source, native helper source and applicable runtime grants accompany the ZIP.

@@ -2,7 +2,7 @@
 
 **Community Preview 0.1 · Windows x64 · local release candidate**
 
-**Publication blocked:** the redistribution grant for the MSVC runtime linked into two native helpers remains unverified. Network observation and the current screenshot set are complete. This is a local review candidate, not an approved public release.
+The local release gates have passed. This is an unsigned Community Preview for Windows 10/11 x64; see [validation and release limits](PUBLIC_RELEASE_GATE.md).
 
 MoMo AI is a Windows-first personal AI operating environment. Models reason and propose work; native code owns credentials, permissions, tools and action authority.
 
@@ -29,13 +29,14 @@ flowchart TD
 
 ## Developer quick start
 
-Requirements: Windows x64, Node.js 24 or newer, npm, Python for native npm modules, Visual Studio C++ Build Tools, and Windows SDK. The project helpers currently target **MSVC v142 and Windows SDK 10.0.19041.0**. Native npm dependencies may require a newer toolchain for the selected Node/Electron release. See [release validation](PUBLIC_RELEASE_GATE.md) for the current verified state; do not assume this candidate is ready to distribute.
+Requirements: Windows 10/11 x64, Node.js 24 or newer and npm. `setup:native` downloads a pinned, checksum-verified LLVM-MinGW toolchain into the checkout. The supported build needs no Visual Studio, Microsoft Build Tools, Windows SDK installation or Python. See [native build and licenses](docs/NATIVE_BUILD.md).
 
 From a checkout of this repository:
 
 ```powershell
 npm ci
 npm run setup:dependencies
+npm run setup:native
 npm run typecheck
 npm run lint
 npm test
