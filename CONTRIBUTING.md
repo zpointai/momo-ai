@@ -8,6 +8,6 @@ Provider and device integrations require strict schemas, bounded calls, redacted
 
 Public tests retain substantive product, storage, IPC, credential, policy, UI and device-protocol checks. Sealed internal evaluation suites that require private benchmark/evidence history are excluded. Synthetic helper code needed by product/security tests is retained; no live account is needed for ordinary CI.
 
-The test configuration pins `Europe/Amsterdam` for calendar fixtures before workers start, regardless of the host timezone. This is a synthetic test convention; production defaults still follow the user's operating system. The production-bundle isolation test has a 30-second timeout for slower hosted Windows builds; its assertions are unchanged.
+The test configuration pins `Europe/Amsterdam` for calendar fixtures before workers start, regardless of the host timezone. This is a synthetic test convention; production defaults still follow the user's operating system. Tests allow 15 seconds in CI (5 seconds locally) for slower hosted Windows DOM interactions; the production-bundle isolation test allows 30 seconds for its three builds. Assertions and application deadline checks are unchanged.
 
 Do not add real secrets, private user content or owner/device identifiers, including in tests. Contributions are made under the project's MIT license. Third-party material needs clear provenance and its required notices.
