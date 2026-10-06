@@ -7,10 +7,14 @@ jobs:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           cache: npm
+      - run: node --test scripts/check-public-history.test.mjs
+      - run: node scripts/check-public-history.mjs
       - run: npm ci
       - run: npm run setup:dependencies
       - run: npm --prefix cloud/mo-relay ci --ignore-scripts
